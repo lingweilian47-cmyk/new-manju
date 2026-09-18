@@ -1,0 +1,58 @@
+name: Restore Original Core
+
+on:
+  push:
+    branches:
+      - fix/restore-original-workflow
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repair branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/restore-original-workflow
+          fetch-depth: 0
+
+      - name: Restore V6.8 core reference files
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='https://raw.githubusercontent.com/lixiaoxiao9888-create/manju-laoli-skill/main/short-drama-director/references'
+          curl -fsSL "$BASE/agent-platform-adapters.md" -o short-drama-director/references/agent-platform-adapters.md
+          curl -fsSL "$BASE/asset-first-pipeline.md" -o short-drama-director/references/asset-first-pipeline.md
+          curl -fsSL "$BASE/model-adapters.md" -o short-drama-director/references/model-adapters.md
+          curl -fsSL "$BASE/quality-gate-review.md" -o short-drama-director/references/quality-gate-review.md
+          curl -fsSL "$BASE/screenplay-gate-engine.md" -o short-drama-director/references/screenplay-gate-engine.md
+          curl -fsSL "$BASE/seedance-render-engine.md" -o short-drama-director/references/seedance-render-engine.md
+          curl -fsSL "$BASE/%E2%98%85%20prompt-feeding-checklist.md" -o 'short-drama-director/references/★ prompt-feeding-checklist.md'
+
+          rm -rf short-drama-director/references/novel-entry
+          rm -f 'short-drama-director/examples/小说入口_Seedance2.5七段式无时间码示例.md'
+          rmdir short-drama-director/examples 2>/dev/null || true
+
+          rm -f .github/workflows/restore-original-core.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+
+      - name: Run package checks
+        run: python3 short-drama-director/scripts/check_package.py
+
+      - name: Commit restored core
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'fix: remove novel route from core references'
+            git push origin HEAD:fix/restore-original-workflow
+          fi
