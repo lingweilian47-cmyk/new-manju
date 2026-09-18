@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "new-manju",
+  "version": "6.9.1",
+  "description": "小说三阶段改编、技术分镜施工与 Seedance 2.5 七段式无时间码提示词生产工作流。",
+  "author": {
+    "name": "lingweilian47-cmyk",
+    "url": "https://github.com/lingweilian47-cmyk"
+  },
+  "homepage": "https://github.com/lingweilian47-cmyk/new-manju",
+  "repository": "https://github.com/lingweilian47-cmyk/new-manju",
+  "license": "MIT",
+  "keywords": [
+    "漫剧",
+    "小说改编",
+    "分镜",
+    "Seedance",
+    "视频提示词"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "New Manju 漫剧导演",
+        "shortDescription": "小说三阶段改编与 Seedance 2.5 漫剧生产",
+        "longDescription": "将小说依次处理为 S1 原作影视化母稿、S2 抖音版单集事件稿和 S3 基础分镜方案，再由 Work 完成人物距离、Blocking、技术摄影、接近 30 秒的自然装组，以及 Seedance 2.5 七段式无时间码提示词与 QA。",
+        "developerName": "lingweilian47-cmyk",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://github.com/lingweilian47-cmyk/new-manju",
+        "defaultPrompt": [
+          "按小说三阶段流程读取我提供的小说，先制作 S1 原作影视化母稿。",
+          "读取已冻结的 S1 与 S2，制作 S3 基础分镜方案。",
+          "读取冻结的 S1、S2、S3 和资产，输出 Seedance 2.5 七段式无时间码提示词。"
+        ],
+        "brandColor": "#6E5AE6"
+      }
+    }
+  }
+}
