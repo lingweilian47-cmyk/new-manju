@@ -30,7 +30,8 @@ short-drama-director/
 
 - `plugin.json`：Agent Plugins 1.0 清单；
 - `.codex-plugin/plugin.json`：Codex 兼容清单；
-- `skills/new-manju-workflow/SKILL.md`：轻量安装入口，仅转交根 `SKILL.md`，不新增工作流；
-- 原版 `SKILL.md`、`references/` 与 `scripts/`。
+- `skills/new-manju-workflow/SKILL.md`：轻量安装入口，转交根 `SKILL.md`；
+- `references/novel-to-screenplay-adapter.md`：P1 小说原文最小增量剧本化规范；
+- 原版 `SKILL.md`、其余 `references/` 与 `scripts/`。
 
-安装后，输入完成的专业剧本即可按原版流程继续资产、完整分镜、提示词和质检。插件不要求小说改编中间稿。
+安装后可直接输入小说并要求 `/小说转剧本`：插件先展示最低理解卡，用户补充梗知识与世界观后，只补硬缺口并转成专业剧本，再按原版流程继续。也可直接输入已经完成的专业剧本，从 P2 资产阶段继续。

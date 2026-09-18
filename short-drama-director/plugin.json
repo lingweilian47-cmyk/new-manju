@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "new-manju",
-  "version": "6.9.2",
-  "description": "从故事想法或专业剧本进入资产、完整分镜、Seedance 提示词与质检的工业化漫剧工作流。",
+  "version": "6.9.3",
+  "description": "支持小说原文最小增量补齐转专业剧本，并从故事想法或现成剧本继续资产、完整分镜、Seedance 提示词与质检。",
   "author": {
     "name": "lingweilian47-cmyk",
     "url": "https://github.com/lingweilian47-cmyk"
@@ -12,6 +12,7 @@
   "license": "MIT",
   "keywords": [
     "漫剧",
+    "小说转剧本",
     "专业剧本",
     "资产",
     "分镜",
@@ -22,8 +23,8 @@
     "com.openai": {
       "interface": {
         "displayName": "New Manju 漫剧导演",
-        "shortDescription": "专业剧本到资产、完整分镜与视频提示词",
-        "longDescription": "遵循原版 V6.8 Lite P0-P5 工作流。可从故事想法开始，也可把已完成的专业生产剧本视为现成 P1 产物，继续完成人物、场景、道具与声音提取，资产核验，镜头选择与合并拆分，完整分镜，Seedance 提示词和 QA。",
+        "shortDescription": "小说／专业剧本到资产、完整分镜与视频提示词",
+        "longDescription": "遵循 V6.8 Lite P0-P5 主流程。小说输入只在 P1 内先做最低理解确认，再按‘原文主体、补充补丁、世界观只读’完成最小增量补齐与专业剧本转写；现成专业剧本直接视为 P1 产物。两者随后统一进入原版资产、空间、镜头选择与合并拆分、完整分镜、Seedance 提示词和 QA。",
         "developerName": "lingweilian47-cmyk",
         "category": "Productivity",
         "capabilities": [
@@ -32,9 +33,9 @@
         ],
         "websiteURL": "https://github.com/lingweilian47-cmyk/new-manju",
         "defaultPrompt": [
+          "读取我提供的小说，先给出最低理解与需求确认；不要重写，只补原剧情无法连续落成画面的硬缺口，转成专业剧本后继续原版流程。",
           "读取我提供的专业生产剧本，按原版流程从资产提取开始，连续完成完整分镜、视频提示词和质检。",
-          "读取这个故事想法，按原版五阶门控完成剧本，并继续后续漫剧生产。",
-          "读取已锁定剧本、项目合同和已有素材，完成空间调度、完整分镜与 Seedance 提示词。"
+          "读取这个故事想法，按原创五阶门控完成剧本，并继续后续漫剧生产。"
         ],
         "brandColor": "#6E5AE6"
       }
