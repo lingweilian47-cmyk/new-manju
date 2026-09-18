@@ -1,124 +1,38 @@
-# 漫剧老李 AIGC 创作全流程 Skill · V6.9 小说三阶段接入版（Short-Drama Director Suite）
-> ## 🆕 小说漫剧三阶段接入版
->
-> 本仓库在原 V6.8 Lite 全流程底座上新增一条兼容入口：小说先由 Chat 完成 S1 原作影视化增补、S2 抖音剧情优化、S3 基础分镜架构；Work 不再重新编剧，而是施工人物距离、空间、景别、构图、运镜、30 秒生成组与 Seedance 2.5 Prompt。
->
-> 小说入口最终提示词直接采用原项目七段式，但改为 **Seedance 2.5 无时间码版**：内部保留计时，最终不写时间码、数字秒数或时长控制。入口文档见 `short-drama-director/references/novel-entry/`。
+# 漫剧老李 AIGC 全流程 Skill · V6.8 Lite
 
+本目录保留原版工业化漫剧生产流程，并增加 Agent Plugins / Codex 安装包装。
 
-面向 **AIGC 视听创作** 的工业级全流程创作技能包，供 AI 助手 / LLM 调用——从创意立项、剧本、资产、分镜到视频模型投喂提示词与独立质检。
-典型场景为 AI 短剧 / 漫剧 / 短视频剧集；管线与题材解耦，同样适用于 AI 广告片 / 宣传片、分镜预演（PREVIS）、武打动作设计、微表情专项等一切需要跨镜头一致性的 AIGC 视频生产。
-覆盖：**Asset-First 六阶段管线**（立项锁定 → 五阶门控剧本 → 数字资产包 → 分镜 → 视频提示词渲染 → 独立质检）。
+## 原版生产顺序
 
-> 🔑 **双入口核心理念：小说入口以冻结 S1/S2/S3 为上游权威，Work 只做技术施工；两条入口均遵守资产一致性。**
-
-> 🔑 **原入口核心理念：资产图先于分镜。** 角色/场景/道具在 P2 数字资产包阶段完成**出图并锁定**（非文字描述），成为《资产图册》唯一权威事实来源，分镜/投喂一律引用已锁定 @资产图。
-
-> **品牌**：漫剧老李 AIGC 全流程 Skill
-> **版本**：V6.9 小说三阶段接入版（基于 V6.8 Lite）Multi-Agent（V6.7 基座 + 2026-09-15 定向修订：移除可灵正式支持 / 角色 4 View 统一 / 格式命名统一 / 空间 S0~S4·资产 A0~A3·FACS 分级按需触发 / LEGACY 清理，44 份规则库）
-> **技术标识**：`short-drama-director`（OpenClaw 命令路由用，保持不变）
-
-> 🚫 **素材红线边界**：Seedance 2.5 / 2.0 **不支持上传含真人人脸的参考图/视频**——红线只限**素材来源**（禁现实真人照片），**不禁写实/仿真人画风**：R1 写实档、六大美学预设之「东方诗意写实」、次世代 3D/实拍级质感均照常使用。详见 `SKILL.md` 〇节 G。
-
-> ⚠️ 本包是 **给 AI 助手执行的规则库**（OpenClaw Skill / Agent 技能包），不是面向消费者的成品剧本。
-> 把 `SKILL.md` 与 `references/` 一起放入你的 Agent 技能目录即可使用。
-
----
-
-## ✨ 能力总览
-
-| 阶段 | 模块 | 功能 |
-|---|---|---|
-| 管线 | `asset-first-pipeline` | **Asset-First 六阶段（★权威）**：P0~P5 唯一生产顺序，资产图先于分镜（A0~A3 按任务复杂度分级触发） |
-| 画幅 | `aspect-ratio-adaptation` | **画幅强制三选一 + 全流程路由（★权威）**：16:9 / 9:16 / 21:9 与模型版本同规格前置锁定，未指定不动笔；用户指令优先 |
-| 平台 | `agent-platform-adapters` | 多 Agent 平台适配（OpenClaw/WorkBuddy/豆包Coze/Dify）+ 豆包 JSON 分块 |
-| 剧本 | `screenplay-gate-engine` | 五阶门控（前提/结构/节拍/世界观/专业排版） |
-| 台词 | `dialogue-doctor-7d` | 台词七维诊断与三段式重构 |
-| 台词 | `dialogue-speed-check` | **强制语速自检**（三档语速/五步流程/拆镜） |
-| 资产 | `asset-spatial-ledger` | A/B/C 分级资产锁 + **分批出图执行规范（角色 4 View 资产板/场景/道具）** + 3D 空间快照 + 空间站位 S0~S4 分级 + **场景资产图三部分（母版 + 机位调度版/站位版 + 场景拼接图四向版）** |
-| 资产 | `character-lineage-and-sheets` | 角色资产板 + T1→T2→T3 亲缘推导**直接出图** |
-| 台账 | `production-ledger-handbook` | 《剧组资产图册》CHR/AUD/PRP/SCN/Uxx + **资产参考图** 工业化台账 |
-| 情绪 | `emotion-beat-curve` | 12 节拍全片情绪张力量化 + 可视化曲线 |
-| 空间 | `spatial-topview-camera` | 顶视图机位调度（CAM1~4）+ 180° 轴线——**S4 复杂战斗 / 超复杂群像才启用**；日常走一行式【站位声明】+ S0~S4 分级 |
-| 分镜 | `action-previs-15grid` | 15 秒打戏完播潜力评分 + R1/R2/R3 三档 + 11 环动力链 |
-| 分镜 | `xuanhuan-magic-combat` | **玄幻法术战斗（R3专用）**：法宝/五行术法/术法攻防/能量具象/对军清场 |
-| 分镜 | `combat-direction-engine` / `combat-rhythm-defense3state` / `camera-specs-15rules` | 武打导演引擎 / 机枪节奏防守三态 / 镜头规格 15 铁律 |
-| 分镜 | `wenxi-micro-expression` | 文戏情绪六阶段 + 对白保护 |
-| 表演 | `★ facs-micro-expression` / `facs-au-dictionary` / `facs-emotion-recipes` | **FACS 微表情引擎**：表情 AU 化（四区拆解/强度三档/真假笑铁律）+ AU 完整字典 + 情绪→AU 配方库（增强模块·按需触发） |
-| 武学 | `martial-arts-combat-library` / `martial-arts-arsenal` / `authentic-martial-taxonomy` | 23 门武学 + 9 套剑法 + 兵器 + 轻功 + 11 环杀招 |
-| 衔接 | `camera-transitions-6types` | 三手法六式镜头衔接 |
-| 渲染 | `seedance-render-engine` | 时长预算（单组 ≤15s，Seedance 2.5 官方上限 30s）+ 三层解耦；**主格式为七段式**（唯一权威定义见 `model-adapters.md` §5），画幅按 B 锁回填，Seedance 2.5 / Seedance 2.0 强制二选一 |
-| 适配 | `model-adapters` / `comfyui-canvas-automation` | 闭源模型参数适配 + Canvas/API 工作流对接；**2.5 锁定后参考模式二选一（①全能参考 默认 / ②首尾帧·仅 2.5）；2.0 无首尾帧** |
-| 合规 | `platform-safety-compliance-guide` | 安全风控转译词典（降低风险，不承诺 100% 通过） |
-| 质检 | `quality-gate-review` | P0/P1/P2 独立门禁 + 声音相对电平 + **改动后复验铁律（三步闭环 + 改动复验报告）** |
-| 机检 | `scripts/validate_prompt.py` | **稿件级投喂词机检门禁**（C1~C13：时长/切镜/版本语法/画幅/七段式/2.0 禁用首尾帧/高危词/接续状态/镜长雷同节奏门），出稿时跑，FAIL 清零才交付 |
-| 看板 | `storyboard-board-lite` | **轻量离线分镜看板**（md → 单文件 HTML，双击即开；P2.5 出图提示词与 P4 投喂提示词必同板） |
-| 空间 | `spatial-reference-system-V3` | 空间参考系统 V3 原文（**备查**：默认不用一行式站位声明，仅超复杂群像时取法） |
-
-完整模块清单与权威文件路由见 `SKILL.md`。
-
----
-
-## 🚀 快速开始（给 AI 助手）
-
-1. 读取 `SKILL.md`，按“六步工作法”执行——**先完成 A 锁（模型版本 Seedance 2.5/2.0 强制二选一）与 B 锁（画幅 16:9/9:16/21:9）才动笔，未指定不动笔**；
-2. 先定**动作强度档**：`R1 写实克制` / `R2 商业高燃（默认）` / `R3 玄幻大招`；
-3. 有对白 → 先过 `dialogue-speed-check` 语速自检；
-4. 查 `model-adapters` 当前平台能力；
-5. 直投公开平台 → 走 `platform-safety-compliance-guide` 安全默认档转译；
-6. 交付前过 `quality-gate-review`。
-
-## 🧮 常用指令（SKILL 内注册）
-
-`/写剧本` · `/台词诊断` · `/数字资产包` · `/做分镜` · `/语速自检` · `/生成视频提示词` · `/导出工作流参数` · `/看板` · `/微表情` · `/审查` · `跳过确认，直接出整集`
-
-> 完整指令路由（含 `/剧组产出册` `/资产图册` `/情绪曲线` `/角色资产板` `/顶视图` 等）见 `SKILL.md` 四、快速指令路由。
-
----
-
-## 📦 安装
-
-```bash
-# OpenClaw
-openclaw skills install ./short-drama-director --as short-drama-director
+```text
+P0 立项锁定
+→ P1 五阶门控剧本
+→ P2 数字资产包
+→ P3 空间调度与完整分镜
+→ P4 视频提示词
+→ P5 独立质检
 ```
 
-其他 Agent 框架：把整个目录放入技能目录，并在系统提示中引用 `SKILL.md`。
+## 已有专业剧本的处理
 
-## 🧹 质量自检
+当用户直接提供一份完成的专业生产剧本时：
 
-仓库内置 `scripts/check_package.py`：
+1. 把该剧本作为现成的 P1 产物；
+2. 不因为来源是小说、原创或其他媒介而建立专用入口；
+3. 除非用户明确要求改剧本，否则从 P2 资产提取与核验继续；
+4. 分镜的选择、合并、拆分、景别、机位、构图、运镜、时长与生成组由插件按原版 P3 规则完成。
 
-```bash
-python3 scripts/check_package.py
-```
+项目设定、参考世界观、连续状态、已有素材和用户硬约束均作为普通生产附件读取。它们不替代剧本，也不生成 S1／S2／S3 等中间工件。
 
-检查：SKILL frontmatter 完整性、references 清单、语义回归（可灵残留 / 4 View 口径 / Prompt 格式命名 / LEGACY 标记 / README-SKILL 版本一致）。
+## 主要能力
 
----
+- Seedance 2.5 / 2.0 分流适配；
+- 16:9、9:16、21:9 画幅锁定；
+- Asset-First 数字资产包；
+- 文戏微表情与武戏动力链；
+- 空间站位、轴线和完整分镜；
+- 七段式视频提示词；
+- P0～P2 质量门禁与提示词机检；
+- Markdown 到离线分镜看板。
 
-## 🧱 结构
-
-```
-short-drama-director/
-├── SKILL.md                     # 总控路由 + 工作法 + 模块清单
-├── references/                  # 38 个专业规则库
-├── scripts/
-│   ├── check_package.py         # 包级静态规则与完整性校验脚本（打包/出厂时跑）
-│   ├── validate_prompt.py       # 稿件级投喂词机检门禁（C1~C13；出稿时跑）
-│   ├── build_board_lite.py      # 轻量离线分镜看板编译器（md → 单文件 HTML）
-│   └── generate_emotion_curve.py# 12 节拍情绪曲线绘制脚本
-├── README.md
-├── LICENSE
-└── CHANGELOG.md
-```
-
-## 📄 License
-
-见 [LICENSE](./LICENSE)。
-
-## 🙏 致谢与使用约定
-
-- 本包整理自 AI 短剧/漫剧工业化生产实践，供创作学习使用；
-- 涉及真实武术流派、历史地点仅作创作参考；
-- 输出内容需自行遵守所在平台的内容规范与版权要求。
+完整规则以 [`SKILL.md`](./SKILL.md) 和 [`references/`](./references/) 为准。

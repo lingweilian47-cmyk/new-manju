@@ -1,41 +1,12 @@
 ---
 name: short-drama-director
-description: "【漫剧老李AIGC 全流程Skill · V6.9 小说三阶段接入版 Multi-Agent】抖音与红果爆款短剧/漫剧工业化编剧与视听导演超级系统。全面支持 OpenClaw、WorkBuddy、豆包智能体/扣子(Coze)等多Agent平台，深度适配 Seedance 2.5/2.0（强制二选一，即梦为次选/历史兼容）闭源视频模型。整合模型版本强制锁定、五阶门控剧本引擎、台词七维诊断、FACS微表情引擎（表情AU化/真假笑/情绪配方库）、16项资产锁、《剧组产出册》工业台账、12节拍情绪曲线、二阶亲缘资产推导、2x2俯视空间机位图（CAM1~CAM4）、15秒打戏PREVIS、Canvas/API自动化工作流与P0~P2独立质检门禁。"
+description: "【漫剧老李AIGC 全流程Skill · V6.8 轻量版 Multi-Agent】抖音与红果爆款短剧/漫剧工业化编剧与视听导演超级系统。全面支持 OpenClaw、WorkBuddy、豆包智能体/扣子(Coze)等多Agent平台，深度适配 Seedance 2.5/2.0（强制二选一，即梦为次选/历史兼容）闭源视频模型。整合模型版本强制锁定、五阶门控剧本引擎、台词七维诊断、FACS微表情引擎（表情AU化/真假笑/情绪配方库）、16项资产锁、《剧组产出册》工业台账、12节拍情绪曲线、二阶亲缘资产推导、2x2俯视空间机位图（CAM1~CAM4）、15秒打戏PREVIS、Canvas/API自动化工作流与P0~P2独立质检门禁。"
 ---
 
-# 漫剧老李 AIGC 全流程 Skill · V6.9 小说三阶段接入版（双入口工业级导演系统）
+# 漫剧老李 AIGC 全流程 Skill · V6.8 轻量版（全平台与多模型工业级导演系统）
 
-版本：V6.9 小说三阶段接入版（基于 V6.8 Lite）Multi-Agent（多 Agent 平台与 Seedance 2.5/2.0 强制分流适配版；以 V6.7 为基座作 2026-09-15 定向修订——移除可灵正式支持 / 角色资产统一 4 View / Prompt 格式命名统一 / 空间·资产·FACS 分级按需触发 / 历史口径 LEGACY 标记，规则库 44 份（含小说入口 6 份）完整版）  
-定位：面向 **AIGC 视听创作** 的工业化全流程创作总控中枢——典型场景为抖音、红果等平台的短剧/漫剧工业化生产，管线与题材解耦，同样适用于 AI 广告片/宣传片、分镜预演（PREVIS）、武打动作设计等 AIGC 视频创作。**全面兼容 OpenClaw、WorkBuddy、豆包智能体 / 扣子 (Coze)、Dify 等主流 Agent 运行环境**，**深度适配 Seedance 2.5、Seedance 2.0 主流闭源视频模型（原入口 2.5/2.0 强制二选一；小说入口固定 Seedance 2.5，见〇-N节）；即梦为次选/历史兼容，不参与强制二选一**。
-
----
-
-## 〇-N、小说漫剧已改编入口（CURRENT · 本项目默认入口）
-
-> **当输入包含冻结 S1、S2、S3 时，本节优先于下方原始 P1 编剧流程。**完整合同见 `references/novel-entry/04_小说漫剧已改编入口与Work交接.md`。
-
-### N1 · 三份冻结稿是生产前提
-
-```text
-S1 原作影视化母稿：人物、情绪、物件、动作依据、能力与特效机制权威
-S2 抖音版单集事件稿：单集范围、事件顺序、确认对白、体验与节奏权威
-S3 基础分镜方案：镜头数量、镜头功能、观看对象、同框／拆镜与切镜理由权威
-```
-
-Work 只负责技术施工：资产、人物距离、Blocking、精确景别、机位、构图、运镜、表演、30 秒装组、Seedance 2.5 Prompt 与 QA。不得重新读小说后恢复删减、补剧情、改对白或重做基础分镜。
-
-### N2 · 模型与最终 Prompt 固定合同
-
-- 模型固定为 **Seedance 2.5**；默认全能参考模式；
-- 提示词固定使用原包七段式：`画幅风格 → 场景资产 → 核心人物 → 站位声明 → 时间轴分镜 → 音效 → 强制禁止项`；
-- `接续状态`仍是时间轴分镜末镜后的强制尾行；
-- Work 内部必须估算对白、动作、情绪读取、运镜与特效容量，并按自然连续性尽量装入接近 30 秒的生成组；
-- **最终交付禁止时间码、数字秒数、镜长、总时长与“停顿几拍”**；时间只通过镜头数量、每镜内容量、同期关系与可见结束条件隐式控制；
-- 详细规则见 `references/novel-entry/05_Work技术施工与Seedance2.5无时间码流程.md` 与 `06_Seedance2.5七段式无时间码合同.md`。
-
-### N3 · 原入口继续保留
-
-只有故事想法、梗概、普通剧本或非小说任务时，继续使用下方原项目五阶剧本门控。小说入口不是删除原能力，而是新增一个已经完成编剧、平台剪辑与基础分镜门控的兼容入口。
+版本：V6.8 轻量版（Lite）Multi-Agent（多 Agent 平台与 Seedance 2.5/2.0 强制分流适配版；以 V6.7 为基座作 2026-09-15 定向修订——移除可灵正式支持 / 角色资产统一 4 View / Prompt 格式命名统一 / 空间·资产·FACS 分级按需触发 / 历史口径 LEGACY 标记，规则库 38 份轻装完整版）  
+定位：面向 **AIGC 视听创作** 的工业化全流程创作总控中枢——典型场景为抖音、红果等平台的短剧/漫剧工业化生产，管线与题材解耦，同样适用于 AI 广告片/宣传片、分镜预演（PREVIS）、武打动作设计等 AIGC 视频创作。**全面兼容 OpenClaw、WorkBuddy、豆包智能体 / 扣子 (Coze)、Dify 等主流 Agent 运行环境**，**深度适配 Seedance 2.5、Seedance 2.0 主流闭源视频模型（2.5/2.0 强制二选一，见〇节）；即梦为次选/历史兼容，不参与强制二选一**。
 
 ---
 
@@ -135,13 +106,7 @@ skills/short-drama-director/
     ├── ★ emotion-beat-curve.md              # 12 节拍全片情绪张力与可视化曲线引擎
     ├── ★ spatial-topview-camera.md          # 空间顶视图与机位调度图规范 (2x2 四图合一/CAM1~4/180°轴线)
     ├── ★ character-lineage-and-sheets.md    # 角色资产板与亲缘/多梯队遗传推导规范
-    ├── ★ screenplay-gate-engine.md          # 五阶门控剧本引擎；小说入口使用 P1-N 导入验收，不重新编剧
-    ├── novel-entry/01_Chat原作影视化增补.md   # S1：小说到完整影视事件
-    ├── novel-entry/02_Chat抖音剧情优化.md     # S2：平台选材、减法与场景体验
-    ├── novel-entry/03_Chat基础分镜架构.md     # S3：镜头数量、功能与观看逻辑
-    ├── novel-entry/04_小说漫剧已改编入口与Work交接.md # 双入口与权威边界
-    ├── novel-entry/05_Work技术施工与Seedance2.5无时间码流程.md # Work技术施工主链
-    ├── novel-entry/06_Seedance2.5七段式无时间码合同.md # 小说入口最终Prompt合同
+    ├── ★ screenplay-gate-engine.md          # 五阶门控剧本引擎 (Premise->Structure->Beat->Entity->Page)
     ├── ★ dialogue-doctor-7d.md              # 台词七维全量诊断与三段式理由重构引擎（★权威，下方普通条目已合并，不重复列）
     ├── ★ dialogue-speed-check.md            # 台词语速自检引擎（语速三档/速算公式/三档判定/五步流程）
     ├── ★ asset-spatial-ledger.md            # 16 项资产锁定(A/B/C分级)、4 View 资产板、短锚点(@asset_name)、3D 空间快照、空间站位 S0~S4 分级、场景资产图三部分（母版+机位/站位版+场景拼接图）
@@ -220,7 +185,6 @@ skills/short-drama-director/
 
 | 常用指令 | 对应功能与底层库调用 |
 |---|---|
-| **`/小说漫剧制作`** 或 **`/导入S1S2S3`** | 进入小说漫剧已改编入口：验收冻结 S1/S2/S3 → 资产与空间 → 技术分镜 → 内部 30 秒装组 → Seedance 2.5 七段式无时间码 Prompt → QA。 |
 | **`/写剧本`** 或 **`初始化项目`** | 启动五阶门控剧本引擎，输出前提、因果节拍表与标准排版剧本。 |
 | **`/剧组产出册`** 或 **`/生成台账`** | 启动 P2 数字资产包：输出《完整资产清单》→ 分批出图（角色/场景/道具）→ 交付《资产图册》（CHR/AUD/PRP/SCN/Uxx 全附资产参考图）。 |
 | **`/数字资产包`** 或 **`/资产图册`** | P2 核心入口：提取全部实体 → 资产清单确认 → 分批出图锁定 → 交付《资产图册》。 |
@@ -231,7 +195,7 @@ skills/short-drama-director/
 | **`/台词诊断`** 或 **`台词体检`** | 启动台词专科医生，输出角色语言指纹、七维诊断与三段式改写。 |
 | **`/微表情`** 或 **`/表情诊断`** | 启动 FACS 微表情引擎：空泛情绪词 → AU 配方替换（四区拆解+强度三档+时序+英文 kernel）；可产出角色情绪库 / FACS cue 表，或按自检清单做表情审查。 |
 | **`/语速自检`** 或 **`台词语速检查`** | 启动 dialogue-speed-check 语速自检：拆句 $\rightarrow$ 计数 $\rightarrow$ 套档 $\rightarrow$ 判定。 |
-| **`/生成视频提示词`** | 若存在冻结 S1/S2/S3，默认走小说入口：Seedance 2.5 七段式无时间码 Prompt，内部估时但最终不写时间码，机检使用 `scripts/validate_prompt.py <稿> --model 2.5 --profile novel-2.5-ntc`。没有 S1/S2/S3 时沿用原项目 2.5/2.0 流程。完整执行序列见 `references/★ prompt-feeding-checklist.md`。 |
+| **`/生成视频提示词`** | 输出 Seedance 2.5 / 2.0 / 即梦分层独立三层解耦提示词组（每组时长按模型契约: 2.5 ≤30s / 2.0 ≤15s / 即梦 5~10s）（⚠️ 画幅必须以用户指定 16:9 或 9:16 为准，禁止默认回落竖屏）。**投喂前必过清单（按序）：① `seedance-render-engine`（三层解耦+时长预算）→ ② `aspect-ratio-adaptation`（画幅回填）→ ③ `camera-specs-15rules`（镜头五要素+景别阶梯）→ ④ 有对白必过 `dialogue-speed-check`（语速自检）+ `wenxi-micro-expression`（金句发酵）→ ⑤ 战斗段按档切 `xuanhuan-magic-combat`（R3玄幻）/ `action-previs-15grid`（武侠）→ ⑥ 出稿前过 `quality-gate-review` → ⑦ **出稿机检**跑 `scripts/validate_prompt.py <稿> --model 2.5|2.0`，FAIL 清零才交付。完整执行序列见 `references/★ prompt-feeding-checklist.md`。** |
 | **`/导出工作流参数`** | 导出适用于 WorkBuddy / 豆包工作流 / Canvas / API 的结构化载荷（⚠️ 载荷内 `aspect_ratio` 回填用户指定画幅）。 |
 | **`跳过确认，直接出整集`** | **极速直出模式**：后台静默执行全套工业约束，前台直接输出无后台词污染的成品。 |
 | **`/看板`** 或 **`编译看板`** | 把项目 md 一键编译为**单文件离线分镜看板**（`scripts/build_board_lite.py`，双击即开；规范见 `references/storyboard-board-lite.md`）。 |
