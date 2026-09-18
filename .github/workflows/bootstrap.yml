@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '.bootstrap/**'
-      - '.github/workflows/bootstrap.yml'
+      - '.bootstrap/ready.flag'
 
 permissions:
   contents: write
@@ -23,7 +22,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .bootstrap/payload.part* | base64 -d > /tmp/bootstrap_payload.tar.gz
+          cat .bootstrap/good.part* | base64 -d > /tmp/bootstrap_payload.tar.gz
           tar -xzf /tmp/bootstrap_payload.tar.gz -C .bootstrap
 
       - name: Restore pinned upstream package
@@ -52,9 +51,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          if git diff --cached --quiet; then
-            echo 'No changes to commit.'
-          else
-            git commit -m 'feat: deploy V6.9 novel three-stage pipeline'
-            git push origin main
-          fi
+          git commit -m 'feat: deploy V6.9 novel three-stage pipeline'
+          git push origin main
