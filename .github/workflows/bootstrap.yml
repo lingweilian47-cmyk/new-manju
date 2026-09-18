@@ -1,0 +1,60 @@
+name: Bootstrap V6.9 novel pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.bootstrap/**'
+      - '.github/workflows/bootstrap.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode bootstrap payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/payload.part* | base64 -d > /tmp/bootstrap_payload.tar.gz
+          tar -xzf /tmp/bootstrap_payload.tar.gz -C .bootstrap
+
+      - name: Restore pinned upstream package
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/lixiaoxiao9888-create/manju-laoli-skill.git /tmp/upstream
+          git -C /tmp/upstream checkout dfd429faeaa753d6594f6dada37733beaa9333f8
+          rsync -a --exclude='.git' /tmp/upstream/ ./
+
+      - name: Apply novel-entry adaptation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/patch.part* > .bootstrap/apply.py
+          python .bootstrap/apply.py
+
+      - name: Commit deployed project
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'feat: deploy V6.9 novel three-stage pipeline'
+            git push origin main
+          fi
