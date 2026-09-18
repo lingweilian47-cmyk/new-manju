@@ -1,0 +1,16 @@
+{
+  "name": "new-manju-marketplace",
+  "interface": {
+    "displayName": "New Manju 漫剧工作流"
+  },
+  "plugins": [
+    {
+      "name": "new-manju",
+      "source": {
+        "source": "local",
+        "path": "./short-drama-director"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
