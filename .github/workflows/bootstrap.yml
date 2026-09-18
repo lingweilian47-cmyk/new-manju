@@ -22,7 +22,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .bootstrap/good.part* | base64 -d > /tmp/bootstrap_payload.tar.gz
+          cat \
+            .bootstrap/payload.part00 \
+            .bootstrap/payload.part01 \
+            .bootstrap/fix02.00 \
+            .bootstrap/fix02.01 \
+            .bootstrap/fix02.02 \
+            .bootstrap/fix02.03 \
+            .bootstrap/fix03.00 \
+            .bootstrap/fix03.01 \
+            .bootstrap/fix03.02 \
+            .bootstrap/fix03.03 \
+            | base64 -d > /tmp/bootstrap_payload.tar.gz
           tar -xzf /tmp/bootstrap_payload.tar.gz -C .bootstrap
 
       - name: Restore pinned upstream package
